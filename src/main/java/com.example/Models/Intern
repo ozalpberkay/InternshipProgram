@@ -1,0 +1,95 @@
+package com.example.Models;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+public class Intern {
+
+
+    @OneToMany(mappedBy = "name",cascade = CascadeType.ALL)
+    private List<Evaluation> evaluationList;
+    private String name;
+    private String surname;
+    private String project;
+    private String school;
+    private Long startingDate;
+    private Long finishingDate;
+    private String ev;
+
+    public Intern(String name, String surname, String project, String school, Long startingDate, Long finishingDate,String ev) {
+        this.name = name;
+        this.surname = surname;
+        this.project = project;
+        this.school = school;
+        this.startingDate = startingDate;
+        this.finishingDate = finishingDate;
+        this.ev=ev;
+    }
+    public Intern(){
+
+    }
+    public String getEv() {
+        return ev;
+    }
+
+    public void setEv(String ev) {
+        this.ev = ev;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public Long getStartingDate() {
+        return startingDate;
+    }
+
+    public Long getFinishingDate() {
+        return finishingDate;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public void setStartingDate(Long startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public void setFinishingDate(Long finishingDate) {
+        this.finishingDate = finishingDate;
+    }
+
+    public List<Evaluation> getEvaluationList() {
+        return evaluationList;
+    }
+
+    public void setEvaluationList(List<Evaluation> evaluationList) {
+        this.evaluationList = evaluationList;
+    }
+
+}
