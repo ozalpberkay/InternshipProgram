@@ -1,0 +1,51 @@
+package com.example.Controllers;
+
+
+
+import com.example.Models.Intern;
+import com.example.Repositories.InternRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
+@RestController
+public class SurnameController {
+
+    @Autowired
+    private InternRepository internRepository;
+
+    @RequestMapping(value = "/surnames/create", method = RequestMethod.POST)
+    @ResponseBody
+    public Intern create(@RequestBody Intern surname) {
+
+        System.out.println("create");
+        internRepository.save(surname);
+        return surname;
+    }
+    @RequestMapping(value = "/surnames/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public String delete(long id) {
+        Intern surname = internRepository.findOne(id);
+        internRepository.delete(surname);
+        return "successfully deleted";
+    }
+    @RequestMapping(value = "/surnames/update", method = RequestMethod.POST)
+    @ResponseBody
+    public String update(long id, String surname1) {
+        Intern surname = internRepository.findOne(id);
+        surname.setSurname(surname1);
+        internRepository.save(surname);
+        return "successfully updated";
+    }
+    @RequestMapping(value = "/surnames/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Intern> list() {
+        System.out.print("list");
+        Iterable<Intern> surnameList = internRepository.findAll();
+        return surnameList;
+
+    }
+}
