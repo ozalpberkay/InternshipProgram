@@ -1,0 +1,51 @@
+package com.example.Controllers;
+
+
+
+import com.example.Models.Intern;
+import com.example.Repositories.InternRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
+@RestController
+public class ProjectController {
+
+    @Autowired
+    private InternRepository internRepository;
+
+    @RequestMapping(value = "/projects/create", method = RequestMethod.POST)
+    @ResponseBody
+    public Intern create(@RequestBody Intern project) {
+
+        System.out.println("create");
+        internRepository.save(project);
+        return project;
+    }
+    @RequestMapping(value = "/projects/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public String delete(long id) {
+        Intern project = internRepository.findOne(id);
+        internRepository.delete(project);
+        return "successfully deleted";
+    }
+    @RequestMapping(value = "/projects/update", method = RequestMethod.POST)
+    @ResponseBody
+    public String update(long id, String projectName) {
+        Intern project = internRepository.findOne(id);
+        project.setProject(projectName);
+        internRepository.save(project);
+        return "successfully updated";
+    }
+    @RequestMapping(value = "/projects/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Intern> list() {
+        System.out.print("list");
+        Iterable<Intern> projectList = internRepository.findAll();
+        return projectList;
+
+    }
+}
