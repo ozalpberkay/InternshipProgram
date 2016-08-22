@@ -1,0 +1,51 @@
+package com.example.Controllers;
+
+
+
+import com.example.Models.Intern;
+import com.example.Repositories.InternRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+
+@RestController
+public class SchoolController {
+
+    @Autowired
+    private InternRepository internRepository;
+
+    @RequestMapping(value = "/schools/create", method = RequestMethod.POST)
+    @ResponseBody
+    public Intern create(@RequestBody Intern school) {
+
+        System.out.println("create");
+        internRepository.save(school);
+        return school;
+    }
+    @RequestMapping(value = "/schools/delete", method = RequestMethod.GET)
+    @ResponseBody
+    public String delete(long id) {
+        Intern school = internRepository.findOne(id);
+        internRepository.delete(school);
+        return "successfully deleted";
+    }
+    @RequestMapping(value = "/schools/update", method = RequestMethod.POST)
+    @ResponseBody
+    public String update(long id, String schoolName) {
+        Intern school = internRepository.findOne(id);
+        school.setSchool(schoolName);
+        internRepository.save(school);
+        return "successfully updated";
+    }
+    @RequestMapping(value = "/schools/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Intern> list() {
+        System.out.print("list");
+        Iterable<Intern> schoolList = internRepository.findAll();
+        return schoolList;
+
+    }
+}
