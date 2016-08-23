@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<body>
+List of Interns
+<div np-app="myApp" ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="Interns with interns">
+            {{intern.Name}}
+            {{intern.Surname}}
+            {{intern.Project}}
+            {{intern.School}}
+        </li>
+    </ul>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        $http
+            .get("http://localhost:8080/interns/list")
+            .then(function(response) {
+                $scope.interns = response.data;
+            });
+    });
+</script>
+</body>
+</html>
