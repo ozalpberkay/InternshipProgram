@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <form>
+        Name: <input type="text" ng-mmodel="Name"/></br>
+        Surname: <input type="text" ng-mmodel="Surname"/></br>
+        Project: <input type="text" ng-mmodel="Project"/></br>
+        School: <input type="text" ng-mmodel="School"/></br>
+        </br>
+        <button ng-click="updateMethod()" class="btn-panel-big">Update Person</button>
+    </form>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+        $scope.updateMethod = function updateMethod() {
+            console.log("updating " + $scope.Name);
+            $http
+                .get("http://localhost:8080/interns/delete/",{
+                    Name: $scope.Name,
+                    Surname: $scope.Surname,
+                    Project: $scope.Project,
+                    School: $scope.School
+                })
+                .then(function (result) {
+                    console.log("Person deleted", result.status, arguments);
+                }, function () {
+                    console.log("Reject", arguments);
+                }, function () {
+                    console.log("complete", arguments);
+                });
+        }
+    });
+</script>
+</body>
+</html>
 
