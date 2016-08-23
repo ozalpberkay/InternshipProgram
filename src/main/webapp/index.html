@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.layouts.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.1/md-data-table.min.css">
+</head>
+<body>
+    <div np-app="myApp" ng-controller = "MyCtrl">
+        <div layout-gt="row" style="margin-left: 400px;">
+            <md-imput-container>
+                <label>Intern's name</label>
+                <input type="text" ng-model="Name">
+            </md-imput-container>
+            <md-button class="md-raised md-primary" ng-click="addMethod(Name,Surname,Project,School)">Save</md-button>
+        <p>
+        </div>
+    <md-button ng-click="listMethod()" class="md-raised md-primary">Show Interns</md-button>
+    <p>
+        <div>
+        <md-table-container>
+            <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                <tbody md-body>
+
+                <tr md-row ng-repeat="Intern with interns">
+                    <td md-cell>
+                        <md-button ng-click="evaluatePerson(id)"...>
+                            <img class="png.icon" src="http://bmb.psu.edu/resources/images/evalicon.PNG/image_view_fullscreen" style="width:50px; height:50px;">
+                        </md-button>
+                    </td>
+                   <td md-cell>{{intern.Name}}
+                    {{intern.Surname}}
+                    {{intern.Project}}
+                    {{intern.School}}
+                       <td md-cell>
+                    <md-button ng-click ="deleteMethod(intern.id)" ng-style="{'background-color':'#ff0000'}">DELETE
+                    </md-button>
+                    </td>
+                    <td md-cell>
+                        <md-button ng-click="toggleCustom()" ng-style="{'background-color':'#00ffff'}">EDIT</md-button>
+                        <span ng-hide="custom">Intern's Name:
+                        <input type ="text" ng-model="Name" id="from"/>
+                        </span>
+                        <span ng-hide="custom">
+                            <input type="text" ng-model="evaluationType" id="to"/>
+                        </span>
+                        <span ng-hide="custom">
+                            <button ng-click="updateMethod(Name,Surname,School,Project)" ng-style="{'background-color':'#00ffff'}"
+                                    type ="text" id="guncelle">Update
+                            </button>
+                        </span>
+                        <span ng-show="custom"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-aria.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.1/md-data-table.js"></script>
+
+
+    <script src="app.js"></script>
+</body>
+</html>
