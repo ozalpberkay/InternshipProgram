@@ -1,22 +1,22 @@
 var app = angular.module('myApp', ['ngMaterial','md.data.table']);
 app.controller('myCtrl', function ($scope, $http) {
     $scope.selected=[];
-    $scope.listName = function listName() {
+    $scope.listMethod = function listMethod() {
         $http
-            .get("http://192.168.1.4:8080/names")
+            .get("http://192.168.1.4:8080/interns")
             .then(function(response) {
-                $scope.films = response.data;
+                $scope.interns = response.data;
             });
     },
 
 
-        $scope.deleteName = function deleteName(id) {
+        $scope.deleteMethod = function deleteMethod(id) {
             console.log("deleting " + id);
             $http
-                .delete("http://192.168.1.4:8080/names/" +id)
+                .delete("http://192.168.1.4:8080/interns/" +id)
                 .then(function (result) {
-                    alert("Name deleted");
-                    console.log("Name deleted", result.status, arguments);
+                    alert("Person deleted");
+                    console.log("Person deleted", result.status, arguments);
                 }, function () {
                     console.log("Reject", arguments);
                 }, function () {
@@ -26,15 +26,17 @@ app.controller('myCtrl', function ($scope, $http) {
 
 
 
-        $scope.addName = function addName(personsName,personsSurname){
+        $scope.addMethod = function addMethod(Name,Surname,School,Project){
 
             $http
-                .post("http://192.168.1.4:8080/movies", {
-                    personsName: personsName,
-                    personsSurname: personsSurname
+                .post("http://192.168.1.4:8080/interns", {
+                    Name : Name,
+                    Surname : Surname,
+                    School : School,
+                    Project : Project
                 })
                 .then(function(data, status, headers) {
-                    alert("Name added");
+                    alert("Informations added");
 
                 });
 
@@ -42,17 +44,18 @@ app.controller('myCtrl', function ($scope, $http) {
         },
 
 
-        $scope.updateName = function updateName(id,personsName,personsSurname) {
-            console.log("updating " + id +" "+ personsName+" "+ personsSurname);
+        $scope.updateMethod = function updateMethod(Name,Surname,School,Project) {
+            console.log("updating " + Name +" "+ Surname+" "+ School + " " + Project);
             $http
-                .post("http://192.168.1.4:8080/names",{
-                    id: id,
-                    personsName: personsName,
-                    personsSurname: personsSurname
+                .post("http://192.168.1.4:8080/update",{
+                    Name : Name,
+                    Surname : Surname,
+                    School : School,
+                    Project : Project
                 })
                 .then(function (result) {
                     console.log("Name updated", result.status, arguments);
-                    alert("Name updated");
+                    alert("Informations updated");
                 }, function () {
                     console.log("Reject", arguments);
                 }, function () {
@@ -62,28 +65,13 @@ app.controller('myCtrl', function ($scope, $http) {
         },
 
 
-        $scope.likePerson = function likePerson(id) {
-            console.log("like " + id);
+        $scope.evaluatePerson = function evaluatePerson(id) {
+            console.log("evaluate " + id);
             $http
-                .post("http://192.168.1.4:8080/names/"+id+"/like")
+                .post("http://192.168.1.4:8080/interns/"+id+"/evaluate")
                 .then(function(data, status, headers) {
-                    alert("Person liked");
+                    alert("Person evaluated");
 
-                });
-        },
-
-
-        $scope.dislikePerson = function dislikePerson(id) {
-            console.log("unlike " + id);
-            $http
-                .post("http://192.168.1.4:8080/names/"+id+"/dislike")
-                .then(function (result) {
-                    alert("Person unliked");
-                    console.log("Person unliked", result.status, arguments);
-                }, function () {
-                    console.log("Reject", arguments);
-                }, function () {
-                    console.log("complete", arguments);
                 });
         },
 
