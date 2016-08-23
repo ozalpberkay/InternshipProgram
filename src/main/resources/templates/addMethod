@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <form>
+        Name: <input type="text" ng-mmodel="Name"/></br>
+        Surname: <input type="text" ng-mmodel="Surname"/></br>
+        Project: <input type="text" ng-mmodel="Project"/></br>
+        School: <input type="text" ng-mmodel="School"/></br>
+
+        </br><button ng-click="addMethod()" class="btn-panel-big">Add New Person</button>
+    </form>
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        $scope.addMethod = function addMethod(){
+            alert ("adding "+$scope.Name+" "+ $scope.Surname + " " + $scope.Project + " " +$scope.School) ;
+            $http
+                .post("http://localhost:8080/interns/create", {
+                    Name: $scope.Name,
+                    Surname: $scope.Surname,
+                    Project: $scope.Project,
+                    School: $scope.School
+                })
+                .success(function(data, status, headers) {
+                    alert("Person added");
+                });
+        }
+    });
+</script>
+</body>
+</html>
